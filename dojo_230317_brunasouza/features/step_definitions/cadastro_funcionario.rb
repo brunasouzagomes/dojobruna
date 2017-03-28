@@ -14,9 +14,9 @@ Quando(/^preencher os dados do funcionario$/) do
   select('Australian Regional HQ',:from => 'location') #seleciona a localizacao
   click_button('btnSave') #clica no botao salvar
 end                                                                                                                                                            
-Entao(/^deverá exibir uma mensagem de sucesso no cadastro$/) do                   
-    assert_text('Personal Details') #valida a tela detalhes do perfil do usuario cadastrado
-    find(:id,'welcome'). click #clica no menu bemvindo
+Entao(/^deverá exibir uma mensagem de sucesso no cadastro$/) do                  
+    expect(page).to have_content 'Successfully Saved'
+       find(:id,'welcome'). click #clica no menu bemvindo
     click_link('Logout') #realiza logout
     
 end                                                                               
@@ -31,13 +31,9 @@ Quando(/^pesquisar o funcionario$/) do
   fill_in('txtPassword',:with => 'admin') #preenche o campo senha
   click_button('btnLogin') #clica no botao "Login"
   click_link('PIM') #clica no menu PIM
-  #sleep 3
   click_link('menu_pim_viewEmployeeList') # clica no menu employeed list
-  #sleep 3
   fill_in('empsearch_id',:with => '0090')#preenche o campo ID
-  #sleep 3
   click_button('searchBtn') #clica no botao procurar
-  #sleep 3 
   click_link('0090') #Clica no link do nome da pessoa que foi pesquisado
   click_button('btnSave')
   fill_in('personal_txtEmpLastName',:with => 'gomes') #preenche o campo sobrenome
@@ -46,5 +42,5 @@ Quando(/^pesquisar o funcionario$/) do
 end                                                                                  
                                                                                      
 Entao(/^deverão ser carregados os dados do mesmo$/) do                               
-  assert_text('Personal Details') #valida a alteracao realizada no cadastro do usuario      
+  expect(page).to have_content 'Successfully Saved'      
 end                                                                                  
